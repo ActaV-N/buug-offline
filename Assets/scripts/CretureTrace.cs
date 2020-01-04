@@ -12,7 +12,7 @@ public class CretureTrace : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        target = Gameobject.FindGmaeObjectWithTag("Player").transform;  
+        target = GameObject.FindGameObjectWithTag("player").transform;
     }
 
     // Update is called once per frame
