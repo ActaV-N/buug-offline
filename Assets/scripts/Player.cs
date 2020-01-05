@@ -4,60 +4,80 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    // Linear attack
-    // Groun attack
-    // Drop attack
-    string pattern = "Linear"; // default attack pattern(Linear attack)
-
-    // None
-    // Fire
-    // Ice
-    // Thunder
-    string attribute = "none";
-
-
-    public GameObject weapon;
-
-    public float horizontalSpeed = 1f;
+    public float horizontalSpeed = 2f;
     public float jumpForce = 1f;
 
-    bool isAttack = false;
+    bool isJumping = false;
      
     Rigidbody2D rb;
+
+    public static SpriteRenderer playerGFX;
+
+    private Vector3 _move;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
+        playerGFX = gameObject.GetComponentInChildren<SpriteRenderer>();
+    }
+
+    private void Update()
+    {
+        if (Input.GetButtonDown("Jump"))
+        {
+            isJumping = true;
+        }
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        weapon.transform.position = transform.position + new Vector3(-1, 1);
-        if(Input.GetAxis("Horizontal") < 0)
+        Move();
+        Jump();
+    }
+
+    void Move()
+    {
+        if (Input.GetKey(KeyCode.RightArrow))
         {
-            if (!isAttack)
-            {
-                weapon.transform.position = transform.position + new Vector3(0.3f, 0.3f);
-            }
-            transform.position += new Vector3(-horizontalSpeed * Time.deltaTime, 0);
+            playerGFX.flipX = false;
+            _move = Vector3.right * horizontalSpeed;
+            transform.Translate(_move * Time.deltaTime);
         }
-        if(Input.GetAxis("Horizontal") > 0)
+        else if(_move.sqrMagnitude > 0f)
         {
-            if (!isAttack)
-            {
-                weapon.transform.position = transform.position + new Vector3(-0.3f, 0.3f);
-            }
-            transform.position += new Vector3(horizontalSpeed * Time.deltaTime, 0);
+            _move *= 0.5f;
+            transform.Translate(_move * Time.deltaTime);
+            if (_move.magnitude < 0.001f) _move = Vector3.zero;
         }
-        if (Input.GetButtonDown("Jump"))
+
+        if (Input.GetKey(KeyCode.LeftArrow))
         {
-            rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+            playerGFX.flipX = true;
+
+            _move = Vector3.left * horizontalSpeed;
+            transform.Translate(_move * Time.deltaTime);
+
         }
-        if (Input.GetButtonDown("Fire1"))
+        else if (_move.sqrMagnitude > 0f)
         {
-            print("fire");
+            _move *= 0.5f;
+            transform.Translate(_move * Time.deltaTime);
+            if (_move.magnitude < 0.001f) _move = Vector3.zero;
         }
+
+    }
+
+    void Jump()
+    {
+        if (!isJumping) return;
+
+        rb.velocity = Vector2.zero;
+
+        Vector2 jumpVelocity = new Vector2(0, jumpForce);
+        rb.AddForce(jumpVelocity, ForceMode2D.Impulse);
+
+        isJumping = false;
     }
 }
