@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyMove : MonoBehaviour
 {
     Transform target;
+    GameObject Player;
     Transform enemy;
     public float speed;
 
@@ -19,7 +20,11 @@ public class EnemyMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (target.positon.x <= 10 && target.positon.x <= -10 && target.positon.y <= 10 && target.positon.y <= -10)
+        var target = GameObject.FindGameObjectWithTag("Player").transform;
+        var enemy = GameObject.FindGameObjectWithTag("Enemy").transform;
+        var dis = Vector3.Distance(target.transform.position, enemy.transform.position);
+
+        if(dis<=150)
         {
             if (target != null)
             {
@@ -40,6 +45,5 @@ public class EnemyMove : MonoBehaviour
                 }
             }
         }
-        
     }
 }
