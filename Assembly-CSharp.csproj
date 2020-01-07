@@ -55,10 +55,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\scripts\Attacker.cs" />
-     <Compile Include="Assets\scripts\CreatureMovement.cs" />
-     <Compile Include="Assets\scripts\CretureTrace.cs" />
-     <Compile Include="Assets\scripts\Player.cs" />
+     <Compile Include="Assets\Scripts\Attacker.cs" />
+     <Compile Include="Assets\Scripts\CreatureMovement.cs" />
+     <Compile Include="Assets\Scripts\CretureTrace.cs" />
+     <Compile Include="Assets\Scripts\Player.cs" />
+     <Compile Include="Assets\Scripts\Route.cs" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>/Users/naker/Documents/GitHub/BuugOffline/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
