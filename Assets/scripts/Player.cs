@@ -7,27 +7,51 @@ public class Player : MonoBehaviour
     public float horizontalSpeed = 2f;
     public float jumpForce = 1f;
 
-    bool isJumping = false;
-     
+    bool isJumping = false, canJump = false;
+    
     Rigidbody2D rb;
 
     public static SpriteRenderer playerGFX;
 
     private Vector3 _move;
+    Animator animator;
+
+    Vector3 prevPos;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         playerGFX = gameObject.GetComponentInChildren<SpriteRenderer>();
+        animator = gameObject.GetComponent<Animator>();
     }
 
     private void Update()
     {
         if (Input.GetButtonDown("Jump"))
         {
-            isJumping = true;
+            if(canJump){
+                isJumping = true;
+            }
         }
+
+        // Set move animation
+        if(_move != Vector3.zero){
+            animator.SetBool("IsRunning", true);
+        } else{
+            animator.SetBool("IsRunning", false);
+        }
+
+        // Set jump animation
+        Vector3 curVel = (transform.position - prevPos) / Time.deltaTime;
+        if(curVel.y > 0){
+            animator.SetBool("IsJumping", true);
+            // Debug.Log("Up");
+        } else{
+            animator.SetBool("IsJumping", false);
+            // Debug.Log("Down");
+        }
+        prevPos = transform.position;
     }
 
     // Update is called once per frame
@@ -42,6 +66,7 @@ public class Player : MonoBehaviour
         if (Input.GetKey(KeyCode.RightArrow))
         {
             playerGFX.flipX = false;
+
             _move = Vector3.right * horizontalSpeed;
             transform.Translate(_move * Time.deltaTime);
         }
@@ -58,7 +83,6 @@ public class Player : MonoBehaviour
 
             _move = Vector3.left * horizontalSpeed;
             transform.Translate(_move * Time.deltaTime);
-
         }
         else if (_move.sqrMagnitude > 0f)
         {
@@ -66,7 +90,6 @@ public class Player : MonoBehaviour
             transform.Translate(_move * Time.deltaTime);
             if (_move.magnitude < 0.001f) _move = Vector3.zero;
         }
-
     }
 
     void Jump()
@@ -79,5 +102,15 @@ public class Player : MonoBehaviour
         rb.AddForce(jumpVelocity, ForceMode2D.Impulse);
 
         isJumping = false;
+    }
+
+    void OnTriggerEnter2D(Collider2D other){
+        animator.SetBool("OnAir", false);
+        canJump = true;
+    }
+
+    void OnTriggerExit2D(Collider2D other){
+        animator.SetBool("OnAir", true);
+        canJump = false;
     }
 }
