@@ -8,6 +8,7 @@ public class CreatureMovement : MonoBehaviour {
 
     Animator animator;
     Vector3 movement;
+    SpriteRenderer renderer;
     int movementFlag = 0;
 
 
@@ -15,7 +16,7 @@ public class CreatureMovement : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         animator = gameObject.GetComponentInChildren<Animator>();
-
+        renderer = gameObject.GetComponent<SpriteRenderer>();
         StartCoroutine("ChangeMovement");
 	}
 
@@ -23,17 +24,19 @@ public class CreatureMovement : MonoBehaviour {
     {
         movementFlag = Random.Range(0, 3);
 
-        if (movementFlag == 0)
-            animator.SetBool("isMoving", false);
-        else
-            animator.SetBool("isMoving", true);
-
         yield return new WaitForSeconds(3f);
 
         StartCoroutine("ChangeMovement");
     }
-	
-	// Update is called once per frame
+
+    void Update(){
+        if(movement == Vector3.zero){
+            animator.SetBool("isMoving",false);
+        } else{
+            animator.SetBool("isMoving",true);
+        }
+    }
+
 	void FixedUpdate () {
         Move();
 	}
@@ -45,14 +48,14 @@ public class CreatureMovement : MonoBehaviour {
         if(movementFlag == 1)
         {
             moveVelocity = Vector3.left;
-            transform.localScale = new Vector3(4, 4, 1);
+            renderer.flipX = false;
         }
         else if(movementFlag == 2)
         {
             moveVelocity = Vector3.right;
-            transform.localScale = new Vector3(-4, 4, 1);
+            renderer.flipX = true;
         }
-
-        transform.position += moveVelocity * movePower * Time.deltaTime;
+        movement = moveVelocity * movePower * Time.deltaTime;
+        transform.position += movement;
     }
 }
