@@ -9,14 +9,16 @@ public class CreatureMovement : MonoBehaviour {
     Animator animator;
     Vector3 movement;
     SpriteRenderer renderer;
+    Rigidbody2D rb;
     int movementFlag = 0;
 
-
+    
 
 	// Use this for initialization
 	void Start () {
         animator = gameObject.GetComponentInChildren<Animator>();
         renderer = gameObject.GetComponent<SpriteRenderer>();
+        rb = gameObject.GetComponent<Rigidbody2D>();
         StartCoroutine("ChangeMovement");
 	}
 
@@ -35,6 +37,7 @@ public class CreatureMovement : MonoBehaviour {
         } else{
             animator.SetBool("isMoving",true);
         }
+        
     }
 
 	void FixedUpdate () {
@@ -58,4 +61,29 @@ public class CreatureMovement : MonoBehaviour {
         movement = moveVelocity * movePower * Time.deltaTime;
         transform.position += movement;
     }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "AttackPoint")
+        {
+            
+            Ondamaged(collision.transform.position);
+        }
+    }
+
+    void Ondamaged(Vector2 targetpos)
+    {
+        renderer.color = new Color(1, 1, 1, 0.4f);
+
+        int dirc = renderer.flipX ? -1 : 1;
+        rb.AddForce(new Vector2(dirc, 1) * 3, ForceMode2D.Impulse);
+
+        Invoke("OffDamaged", 1);
+    }
+
+    void OffDamaged()
+    {
+        renderer.color = new Color(1,1,1,1);
+    }
+
 }
