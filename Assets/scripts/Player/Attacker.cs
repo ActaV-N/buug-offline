@@ -73,7 +73,7 @@ public class Attacker : MonoBehaviour
             StartCoroutine(Attack());
 
             gameObject.tag = "AttackPoint";
-            Invoke("Delay", 1);
+            Invoke("Delay", 0.5f);
         }
         if(!isAttacking){
             if(Player.playerGFX.flipX)

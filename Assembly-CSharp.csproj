@@ -64,6 +64,7 @@
      <Compile Include="Assets\scripts\Player\ManageAttackRange.cs" />
      <Compile Include="Assets\scripts\Player\Player.cs" />
      <Compile Include="Assets\scripts\Player\Route.cs" />
+     <Compile Include="Assets\scripts\SpawnManager.cs" />
      <Compile Include="Assets\scripts\StartButton.cs" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>C:/Users/psaej/OneDrive/바탕 화면/ss/buug-offline/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
