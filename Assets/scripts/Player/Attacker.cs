@@ -71,6 +71,9 @@ public class Attacker : MonoBehaviour
                 }
             }
             StartCoroutine(Attack());
+
+            gameObject.tag = "AttackPoint";
+            Invoke("Delay", 0.5f);
         }
         if(!isAttacking){
             if(Player.playerGFX.flipX)
@@ -113,5 +116,9 @@ public class Attacker : MonoBehaviour
         isAttacking = false;
         yield return new WaitForSeconds(0.5f);
         isDelay = false;
+    }
+    void Delay()
+    {
+        gameObject.tag = "dd";
     }
 }
