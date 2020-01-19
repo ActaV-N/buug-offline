@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnManager : MonoBehaviour
+public class SpawnManagerTmp : MonoBehaviour
 {
     public int maxCount;//적당한 적의 수
     public int enemyCount;
@@ -12,7 +12,7 @@ public class SpawnManager : MonoBehaviour
     public GameObject enemy;
     public bool[] isSpawn;
 
-    public static SpawnManager _instance;
+    public static SpawnManagerTmp _instance;
     private void Start()
     {
         isSpawn = new bool[spawnPoints.Length];//spawnpoint의 크기만큼 초기화

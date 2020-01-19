@@ -310,10 +310,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 198187741}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6279f1c0a8f0f421a88d158cd63322b2, type: 3}
+  m_Script: {fileID: 11500000, guid: 8a19dc949d0464f75a8dc3bdf248396c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   movePower: 1
+  nextMove: 0
+  hp: 3
+  distance: 0
+  isLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  atkDistance: 0
+  bullet: {fileID: 948631848}
+  pos: {fileID: 0}
+  cooltime: 0
+  speed: 0
 --- !u!1 &411312222
 GameObject:
   m_ObjectHideFlags: 0
@@ -545,7 +556,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.5818424, y: 2.982, z: -10}
+  m_LocalPosition: {x: 5.638794, y: 2.982, z: -10}
   m_LocalScale: {x: -0.1125, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -3324,7 +3335,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1.9772192
+  m_Radius: 3.1216524
 --- !u!1 &1616853962
 GameObject:
   m_ObjectHideFlags: 0
@@ -3645,7 +3656,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1799480934}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.5818424, y: 2.982, z: -10}
+  m_LocalPosition: {x: 5.638794, y: 2.982, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1518827774}

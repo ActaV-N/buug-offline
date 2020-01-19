@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CreatureMovement : MonoBehaviour {
+public class CreatureMovementTmp : MonoBehaviour {
 
     public float movePower = 1f;
 
